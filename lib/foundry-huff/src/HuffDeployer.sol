@@ -5,7 +5,6 @@ import {Vm} from "forge-std/Vm.sol";
 import {HuffConfig} from "./HuffConfig.sol";
 
 library HuffDeployer {
-
     /// @notice Create a new huff config
     function config() public returns (HuffConfig) {
         return new HuffConfig();
@@ -74,7 +73,7 @@ library HuffDeployer {
     /// @param code - Code to append to the file source code (e.g. a constructor macro to make the contract instantiable)
     /// @return The address that the contract was deployed to
     function deploy_with_code(
-        string memory fileName, 
+        string memory fileName,
         string memory code
     ) internal returns (address) {
         return config().with_code(code).deploy(fileName);
@@ -85,7 +84,7 @@ library HuffDeployer {
     /// @param code - Code to append to the file source code (e.g. a constructor macro to make the contract instantiable)
     /// @return The address that the contract was deployed to
     function broadcast_with_code(
-        string memory fileName, 
+        string memory fileName,
         string memory code
     ) internal returns (address) {
         return config().set_broadcast(true).with_code(code).deploy(fileName);
@@ -114,6 +113,9 @@ library HuffDeployer {
         string memory code,
         bytes memory args
     ) internal returns (address) {
-        return config().set_broadcast(true).with_code(code).with_args(args).deploy(fileName);
+        return
+            config().set_broadcast(true).with_code(code).with_args(args).deploy(
+                fileName
+            );
     }
 }
